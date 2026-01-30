@@ -1,10 +1,6 @@
 #include "TextNormalizer.h"
 #include <string.h>
 
-TextNormalizer::TextNormalizer() {
-
-}
-
 void TextNormalizer::removeSpacePunct(std::string& text) {
     if(text.empty()) {
         return;
