@@ -1,8 +1,9 @@
 #include "Intent.h"
+#include <iostream>
 
 // ----------- Intent -----------
 Intent::Intent(bool question, std::vector<std::string> keyWords, std::vector<std::string> answers) {
-    isQuestion = question;
+    this->question = question;
     this->keyWords = keyWords;
     this->answers = answers;
 }
@@ -10,11 +11,11 @@ Intent::Intent(bool question, std::vector<std::string> keyWords, std::vector<std
 Intent::~Intent() {
     keyWords.clear();
     answers.clear();
-    isQuestion = false;
+    question = false;
 }
 
-void Intent::question() {
-    isQuestion = true;
+void Intent::quest() {
+    question = true;
 }
 
 void Intent::addKeyWord(std::string word) {
@@ -45,6 +46,18 @@ void Intent::addAnswer(std::vector<std::string> answers) {
         this->answers[last] = answers[i];
         i++;
     }
+}
+
+std::vector<std::string> Intent::getKeyWords() {
+    return keyWords;
+}
+
+std::vector<std::string> Intent::getAnswers() {
+    return answers;
+}
+
+bool Intent::isQuestion() {
+    return question;
 }
 
 // ----------- IntentRepository -----------
@@ -89,11 +102,11 @@ void IntentRepository::writeIntent(std::string type) {
     }});
 }
 
-void IntentRepository::writeIntent(std::string type, bool isQuestion, std::vector<std::string> words, std::vector<std::string> answers){
+void IntentRepository::writeIntent(std::string type, bool question, std::vector<std::string> words, std::vector<std::string> answers){
     intents.insert({
         type, 
         Intent {
-            isQuestion,
+            question,
             words,
             answers
         }
@@ -118,4 +131,30 @@ void IntentRepository::addAnswer(std::string type, std::string answer) {
 void IntentRepository::addAnswer(std::string type, std::vector<std::string> answers) {
     auto it = intents.find(type);
     it->second.addAnswer(answers);
+}
+
+void IntentRepository::showIntents() {
+    auto itr = intents.begin();
+    while(itr != intents.end()) {
+        std::cout << itr->first << " {"<< std::endl;
+        std::vector<std::string> keyWords = itr->second.getKeyWords();
+        std::vector<std::string> answers = itr->second.getAnswers();
+        
+        std::cout << "\tKey Words {" << std::endl;
+        for(std::string el : keyWords) {
+            std::cout << "\t\t\"" << el << "\",\n";
+        }
+        std::cout << "\t}" << std::endl;
+
+        std::cout << "\tAnswers {" << std::endl;
+        for(std::string el : answers) {
+            std::cout << "\t\t\"" << el << "\",\n";
+        }
+        std::cout << "\t}" << std::endl;
+        
+        std::cout << "}" << std::endl;
+        std::cout << std::endl;
+
+        itr++;
+    }
 }
