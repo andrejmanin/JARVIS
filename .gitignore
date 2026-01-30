@@ -1,5 +1,5 @@
 # IDE start directories
-./vscode
+.vscode/
 
 # Prerequisites
 *.d
