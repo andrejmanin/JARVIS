@@ -8,7 +8,7 @@ IntentRepository::IntentRepository() {
             Intent {
                 false, 
                 {"hi", "hello", "morning", "evening", "ahoj", "cau", "hey"}, 
-                {"hi, how can I help you today?", "hello, nice to see you! How can I help you?"}
+                {"Hi, how can I help you today?", "Hello, nice to see you! How can I help you?"}
             },
         },
         {   
@@ -97,4 +97,8 @@ void IntentRepository::showIntents() {
 
         itr++;
     }
+}
+
+std::map<std::string, Intent>& IntentRepository::getIntents() {
+    return intents;
 }

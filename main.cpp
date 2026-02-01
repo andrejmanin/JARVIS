@@ -1,30 +1,35 @@
 #include <iostream>
+#include <unordered_set>
 
 #include "nlp/TextNormalizer.h"
 #include "intent/Intent.h"
+#include "intent/IntentRepository.h"
+#include "dialog/IntentDetector.h"
 
 int main() {
-    std::string s = " Hello,,,, World            !      How, are     you? a    ";
-    std::cout << s << std::endl;
+    // std::string s = " Hello,,,, World            !      How, are     you? a    ";
+    std::string s = "Hello, Jarvis!";
+    // std::cout << s << std::endl;
     
     TextNormalizer::removeSpacePunct(s);
     TextNormalizer::lowerCase(s);
-    std::list<std::string> list = TextNormalizer::toList(s);
+    // std::cout << s << std::endl;
+    std::vector<std::string> list = TextNormalizer::toVector(s);
     
-    std::cout << "{\n";
-    int count = list.size();
-    int i = 0;
-    for(std::string el : list) {
-        if(i != count - 1)
-            std::cout << "   " << el << "," << std::endl;
-        else 
-            std::cout << "   " << el << std::endl;
-        i++;
-    }
-    std::cout << '}' << std::endl;
+    IntentRepository rep;
+    
+    IntentDetector detector(&rep);
+    IntentResult res = detector.detect(list);
 
-    IntentRepository repository;
-    repository.showIntents();
+    auto intents = rep.getIntents().begin();
+    auto end = rep.getIntents().end();
+    while(intents != end) {
+        if(intents->first == res.name) {
+            std::cout << intents->second.getAnswers()[0] << std::endl;
+            break;
+        }
+        intents++;
+    }
 
     return 0;
 }

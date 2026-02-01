@@ -43,10 +43,11 @@ void TextNormalizer::lowerCase(std::string& text) {
         }
         s += el;
     }
+    text = s;
 }
 
-std::list<std::string> TextNormalizer::toList(std::string& text) {    
-    std::list<std::string> list;
+std::vector<std::string> TextNormalizer::toVector(std::string& text) {    
+    std::vector<std::string> list;
     int size = text.size();
     for(int i = 0, j = 0; i < size; i++) {
         if(text[i] == ' ' && i != 0) {

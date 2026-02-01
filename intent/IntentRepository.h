@@ -22,6 +22,8 @@ public:
     void addAnswer(std::string type, std::string answer);
     void addAnswer(std::string type, std::vector<std::string> answers);
     void showIntents();
+    
+    std::map<std::string, Intent>& getIntents();
 };
 
 #endif // INTENT_REPOSITORY
