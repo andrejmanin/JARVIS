@@ -1,5 +1,6 @@
 #include "TextNormalizer.h"
 #include <string.h>
+#include <iostream>
 
 void TextNormalizer::removeSpacePunct(std::string& text) {
     if(text.empty()) {
@@ -46,16 +47,17 @@ void TextNormalizer::lowerCase(std::string& text) {
     text = s;
 }
 
-std::vector<std::string> TextNormalizer::toVector(std::string& text) {    
-    std::vector<std::string> list;
+std::vector<std::string> TextNormalizer::toVector(const std::string& text) {    
+    std::vector<std::string> v;
     int size = text.size();
     for(int i = 0, j = 0; i < size; i++) {
         if(text[i] == ' ' && i != 0) {
-            list.push_back(text.substr(j, i - j));
+            v.push_back(text.substr(j, i - j));
             j = i + 1;
         } else if(text[i + 1] == '\0' && j <= i) {
-            list.push_back(text.substr(j, i - j + 1));
+            v.push_back(text.substr(j, i - j + 1));
         }
     }
-    return list;
+
+    return v;
 }

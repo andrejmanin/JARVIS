@@ -13,7 +13,7 @@ public:
     static void removeSpacePunct(std::string& text);
     // static void removePunctuation(std::string& text);
     static void lowerCase(std::string& text);
-    static std::vector<std::string> toVector(std::string& text);
+    static std::vector<std::string> toVector(const std::string& text);
 };
 
 #endif

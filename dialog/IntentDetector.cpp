@@ -28,19 +28,19 @@ IntentResult IntentDetector::detect(std::vector<std::string> tokens) {
             }
         }
 
-        std::cout << "For intent: " << itr->first << " there are " << maches << " maches." << std::endl;
+        std::cout << "\tFor intent: " << itr->first << " there are " << maches << " maches." << std::endl;
         
         double score = 0.0;
         if(count != 0.0) {
             score = (double)maches / (double)count;
-            std::cout << count << std::endl;
+            std::cout << "\tCount: " << count << std::endl;
             const int roundingNum = 100;
             if(score - 0 < DBL_EPS * roundingNum * score) {
                 score *= roundingNum * 100000;
-                std::cout << "after dbl_eps: " << (double)score << std::endl;
+                std::cout << "\tafter dbl_eps: " << (double)score << std::endl;
             }
         }
-        std::cout << itr->first << " score: " << (double)score << std::endl;
+        std::cout << '\t' << itr->first << " score: " << (double)score << std::endl;
 
         if(score > bestScore) {
             bestScore = score;
