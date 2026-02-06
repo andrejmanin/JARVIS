@@ -27,8 +27,10 @@ void TextNormalizer::removePunctuation(std::string& text) {
         }
         i++;
     }
-    if(res[res.size() - 1] == ' ')
-        res.pop_back();
+    if(res.size() != 0) {
+        if(res[res.size() - 1] == ' ')
+            res.pop_back();
+    }
     text = res;
 }
 

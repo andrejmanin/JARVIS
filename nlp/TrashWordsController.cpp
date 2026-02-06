@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include "TrashWordsController.h"
 
 TrashWordsController::TrashWordsController() {
@@ -54,16 +55,12 @@ bool TrashWordsController::compare(const std::string word) {
 }
 
 void TrashWordsController::trashCheck(std::vector<std::string>& v) {
-    auto start = v.begin();
-    auto next = start;
-    auto end = v.end();
-    while(start != end) {
-        if(compare(*start)) {
-            next = start + 1;
-            v.erase(start);
-            start = next;
+    auto it = v.begin();
+    while(it != v.end()) {
+        if(compare(*it)) {
+            it = v.erase(it);
         } else {
-            start++;
+            ++it;
         }
     }
 }

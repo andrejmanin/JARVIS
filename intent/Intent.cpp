@@ -34,7 +34,7 @@ void Intent::addAnswer(std::string answer) {
 void Intent::addAnswer(std::vector<std::string> answers) {
     unsigned int answersCount = answers.size();
     for(int i = 0; i < answersCount; i++) {
-        answers.push_back(answers[i]);
+        this->answers.push_back(answers[i]);
     }
 }
 
