@@ -13,6 +13,8 @@ struct IntentResult {
 
 class IntentDetector {
     IntentRepository* repository;
+    
+    unsigned int uniqueIntents(const std::string word);
 public:
     IntentDetector(IntentRepository *repository); 
     IntentResult detect(std::vector<std::string> tokens);

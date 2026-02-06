@@ -15,7 +15,7 @@ IntentRepository::IntentRepository() {
             "HowAreYou",
             Intent {
                 true,
-                {"how", "are", "you"},
+                {"how", "are", "you", "do"},
                 {"Today good!", "Better than yesterday.", "Good. How about you?", "Thank you for asking! I'm good.", "I thing better then yesterday. Thank you."}
             },
         },
@@ -23,7 +23,7 @@ IntentRepository::IntentRepository() {
             "AboutBot",
             Intent {
                 true,
-                {"about", "you"},
+                {"about", "you", "yourself", "tell"},
                 {"I'm bot that can answer on diferent questions and help with your daily tasks."}
             }
         }

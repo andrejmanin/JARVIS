@@ -2,6 +2,7 @@
 #include <unordered_set>
 
 #include "nlp/TextNormalizer.h"
+#include "nlp/TrashWordsController.h"
 #include "intent/Intent.h"
 #include "intent/IntentRepository.h"
 #include "dialog/IntentDetector.h"
@@ -16,6 +17,7 @@ void showVector(std::vector<std::string> v) {
 }
 
 int main() {
+    TrashWordsController controller;
     // std::string s = " Hello,,,, World            !      How, are     you? a    ";
     std::string input;
     std::cout << "Enter someting...\n";
@@ -25,15 +27,16 @@ int main() {
             break;
         }
 
-        TextNormalizer::removeSpacePunct(input);
+        TextNormalizer::removePunctuation(input);
         TextNormalizer::lowerCase(input);
-        std::vector<std::string> list = TextNormalizer::toVector(input);
-        showVector(list);
+        std::vector<std::string> v = TextNormalizer::toVector(input);
+        controller.trashCheck(v);
+        showVector(v);
 
         IntentRepository rep;
         IntentDetector detector(&rep);
         
-        IntentResult res = detector.detect(list);
+        IntentResult res = detector.detect(v);
         
         auto intents = rep.getIntents().begin();
         auto end = rep.getIntents().end();

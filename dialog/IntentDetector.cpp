@@ -1,49 +1,70 @@
 #include "IntentDetector.h"
 #include <unordered_set>
 #include <iostream>
+#include <math.h>
 
 #define DBL_EPS 1e-12 
+
+unsigned int IntentDetector::uniqueIntents(const std::string word) {
+    std::map<std::string, Intent>& intents = repository->getIntents();
+    auto start = intents.begin();
+    auto end = intents.end();
+    unsigned int count = 0;
+    std::cout << "LOG: UniqueIntents..." << std::endl;
+    std::cout << "\t Word: " << word << std::endl;
+    while(start != end) {
+        std::vector<std::string> keyWords = start->second.getKeyWords();
+        bool isUnique = false;
+        for(std::string e : keyWords) {
+            if(e == word) {
+                std::cout << "\t Stop on intent: " << start->first << std::endl;
+                isUnique = true;
+                break;
+            }
+        }
+        if(isUnique) {
+            count++;
+        }
+        start++;
+    }
+    std::cout << "\t Total count: " << count << std::endl;
+    return count;
+}
 
 IntentDetector::IntentDetector(IntentRepository* repository) {
     this->repository = repository;
 }
 
 IntentResult IntentDetector::detect(std::vector<std::string> tokens) {
-    std::unordered_set<std::string> tokenSet(tokens.begin(), tokens.end());
     std::map<std::string, Intent>& intents = repository->getIntents();
     auto itr = intents.begin();
     auto end = intents.end();
     double bestScore = 0.0;
     std::string intentName = "None";
-
+    
     while(itr != end) {
-        int maches = 0;
-
         std::vector<std::string> keyWords = itr->second.getKeyWords();
-        int count = keyWords.size();
+        std::unordered_set<std::string> keyWordSet(keyWords.begin(), keyWords.end());
+        double idf = 0.0;
+
+        int count = tokens.size();
         
         for(int i = 0; i < count; i++) {
-            if(tokenSet.contains(keyWords[i])) {
-                maches++;
+            if(keyWordSet.contains(tokens[i])) {
+                unsigned int unique = uniqueIntents(tokens[i]);
+                if(unique != 0) {
+                    std::cout << "LOG: Intents size: " << intents.size();
+                    std::cout << "\t unique: " << unique << "\t divide: " << (double)log((double)intents.size() / (double)unique) << std::endl;
+                    idf += log((double)intents.size() / unique);
+                    std::cout << "LOG: For word \"" << tokens[i] << "\" weight is = " << log((double)intents.size() / unique) << std::endl;
+                }            
             }
         }
 
-        std::cout << "\tFor intent: " << itr->first << " there are " << maches << " maches." << std::endl;
-        
-        double score = 0.0;
-        if(count != 0.0) {
-            score = (double)maches / (double)count;
-            std::cout << "\tCount: " << count << std::endl;
-            const int roundingNum = 100;
-            if(score - 0 < DBL_EPS * roundingNum * score) {
-                score *= roundingNum * 100000;
-                std::cout << "\tafter dbl_eps: " << (double)score << std::endl;
-            }
-        }
-        std::cout << '\t' << itr->first << " score: " << (double)score << std::endl;
+        std::cout << "LOG: For intent " << itr->first << " there is IDF = " << idf << std::endl;
 
-        if(score > bestScore) {
-            bestScore = score;
+        if(idf > bestScore) {
+            bestScore = idf;
             intentName = itr->first;
         }
         itr++;

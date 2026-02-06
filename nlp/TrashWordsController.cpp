@@ -15,7 +15,7 @@ bool TrashWordsController::addWord(const std::string word) {
     return false;
 }
 
-unsigned int TrashWordsController::addWord(const std::vector<const std::string> words) {
+unsigned int TrashWordsController::addWord(const std::vector<std::string> words) {
     unsigned int count = 0;
     for(const std::string el : words) {
         if(addWord(el)) {
@@ -32,7 +32,7 @@ void TrashWordsController::removeWord(const std::string word) {
     }
 }
 
-void TrashWordsController::removeWord(const std::vector<const std::string> words) {
+void TrashWordsController::removeWord(const std::vector<std::string> words) {
     if(words.size() == 0)
         return;
 
@@ -43,4 +43,23 @@ void TrashWordsController::removeWord(const std::vector<const std::string> words
 
 std::vector<std::string> TrashWordsController::getWords() {
     return trashWords;
+}
+
+bool TrashWordsController::compare(const std::string word) {
+    for(std::string el : trashWords) {
+        if(el == word)
+            return true;
+    }
+    return false;
+}
+
+void TrashWordsController::trashCheck(std::vector<std::string>& v) {
+    auto start = v.begin();
+    auto end = v.end();
+    while(start != end) {
+        if(compare(*start)) {
+            v.erase(start);
+        }
+        start++;
+    }
 }
