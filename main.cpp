@@ -38,7 +38,6 @@ int main() {
         TextNormalizer::lowerCase(input);
         v = TextNormalizer::toVector(input);
         controller.trashCheck(v);
-        showVector(v);
         res = detector.detect(v);
 
         auto begin = intents.begin();
