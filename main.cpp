@@ -18,7 +18,6 @@ void showVector(std::vector<std::string> v) {
 
 int main() {
     TrashWordsController controller;
-    // std::string s = " Hello,,,, World            !      How, are     you? a    ";
     std::string input;
     std::cout << "Enter someting...\n";
     do {
@@ -31,7 +30,6 @@ int main() {
         TextNormalizer::lowerCase(input);
         std::vector<std::string> v = TextNormalizer::toVector(input);
         controller.trashCheck(v);
-        showVector(v);
 
         IntentRepository rep;
         IntentDetector detector(&rep);
