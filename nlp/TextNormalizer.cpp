@@ -53,10 +53,8 @@ std::vector<std::string> TextNormalizer::toVector(const std::string& text) {
         if(text[i] == ' ' && i != 0) {
             v.push_back(text.substr(j, i - j));
             j = i + 1;
-        } else if(i < size - 1) {
-            if(text[i + 1] == *text.end() && j <= i) {
-                v.push_back(text.substr(j, i - j + 1));
-            }
+        } else if(text[i + 1] == *text.end() && j <= i) {
+            v.push_back(text.substr(j, i - j + 1));
         }
     }
 

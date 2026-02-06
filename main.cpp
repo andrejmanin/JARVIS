@@ -28,6 +28,7 @@ int main() {
     
     std::cout << "Enter someting...\n";
     do {
+        std::cout << "You: ";
         std::getline(std::cin, input);
         if(input == "exit") {
             break;
@@ -43,9 +44,7 @@ int main() {
         auto end = intents.end();
         while(begin != end) {
             if(begin->first == res.name) {
-                std::cout << "========================================================\n";
                 std::cout << "Jarvis: " << begin->second.getAnswers()[0] << std::endl;
-                std::cout << "========================================================\n";
                 break;
             }
             begin++;
