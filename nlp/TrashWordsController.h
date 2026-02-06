@@ -9,8 +9,15 @@ class TrashWordsController {
     std::vector<std::string> trashWords;
 
 public:
+    // Adds basic "trash words" to the vector
     TrashWordsController();
+    /**
+     * Returns state of added "trash words"
+     * - true - if word was added
+     * - false - if word wasn't added
+     *  */  
     bool addWord(const std::string word);
+    // Returns count of added "trash words" 
     unsigned int addWord(const std::vector<const std::string> words);
     void removeWord(const std::string word);
     void removeWord(const std::vector<const std::string> words);
