@@ -55,13 +55,10 @@ bool TrashWordsController::compare(const std::string word) {
 
 void TrashWordsController::trashCheck(std::vector<std::string>& v) {
     auto start = v.begin();
-    // auto next = start;
     auto end = v.end();
     while(start != end) {
         if(compare(*start)) {
-            // next = start + 1;
             start = v.erase(start);
-            // start = next;
         } else {
             start++;
         }
