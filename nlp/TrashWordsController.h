@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-//  = { "a", "the", "and", "or", "on", "for" }
 class TrashWordsController {
     std::vector<std::string> trashWords;
     bool compare(const std::string word);

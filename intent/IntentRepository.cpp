@@ -1,5 +1,41 @@
 #include <iostream>
+#include <math.h>
 #include "IntentRepository.h"
+
+void IntentRepository::wordFrequency() {
+    auto start = intents.begin();
+    auto end = intents.end();
+    while(start != end) {
+        const std::vector<std::string>& keyWords = start->second.getKeyWords(); 
+        for(const std::string el : keyWords) {
+            wf.insert({
+                el, log((double)intents.size() / uniqueIntents(el))  
+            });
+        }
+        start++;
+    }
+}
+
+unsigned int IntentRepository::uniqueIntents(const std::string word) {
+    auto start = intents.begin();
+    auto end = intents.end();
+    unsigned int count = 0;
+    while(start != end) {
+        std::vector<std::string> keyWords = start->second.getKeyWords();
+        bool isUnique = false;
+        for(std::string e : keyWords) {
+            if(e == word) {
+                isUnique = true;
+                break;
+            }
+        }
+        if(isUnique) {
+            count++;
+        }
+        start++;
+    }
+    return count;
+}
 
 IntentRepository::IntentRepository() {
     intents = { 
@@ -28,23 +64,24 @@ IntentRepository::IntentRepository() {
             }
         }
     };
+    wordFrequency();
 }
 
 IntentRepository::~IntentRepository() {
     intents.clear();
 }
 
-void IntentRepository::writeIntent(std::string type) {
-    intents.insert({type, Intent {
+void IntentRepository::writeIntent(std::string intentName) {
+    intents.insert({intentName, Intent {
         false,
         {},
         {}
     }});
 }
 
-void IntentRepository::writeIntent(std::string type, bool question, std::vector<std::string> words, std::vector<std::string> answers){
+void IntentRepository::writeIntent(std::string intentName, bool question, std::vector<std::string> words, std::vector<std::string> answers){
     intents.insert({
-        type, 
+        intentName, 
         Intent {
             question,
             words,
@@ -53,23 +90,25 @@ void IntentRepository::writeIntent(std::string type, bool question, std::vector<
     });
 }
 
-void IntentRepository::addKeyWord(std::string type, std::string word) {
-    auto it = intents.find(type);
+void IntentRepository::addKeyWord(std::string intentName, std::string word) {
+    auto it = intents.find(intentName);
     it->second.addKeyWord(word);
+    wordFrequency();
 }
 
-void IntentRepository::addKeyWord(std::string type, std::vector<std::string> words) {
-    auto it = intents.find(type);
+void IntentRepository::addKeyWord(std::string intentName, std::vector<std::string> words) {
+    auto it = intents.find(intentName);
     it->second.addKeyWord(words);
+    wordFrequency();
 }
 
-void IntentRepository::addAnswer(std::string type, std::string answer) {
-    auto it = intents.find(type);
+void IntentRepository::addAnswer(std::string intentName, std::string answer) {
+    auto it = intents.find(intentName);
     it->second.addAnswer(answer);
 }
 
-void IntentRepository::addAnswer(std::string type, std::vector<std::string> answers) {
-    auto it = intents.find(type);
+void IntentRepository::addAnswer(std::string intentName, std::vector<std::string> answers) {
+    auto it = intents.find(intentName);
     it->second.addAnswer(answers);
 }
 
@@ -99,6 +138,10 @@ void IntentRepository::showIntents() {
     }
 }
 
-std::map<std::string, Intent>& IntentRepository::getIntents() {
+const std::map<std::string, Intent>& IntentRepository::getIntents() const {
     return intents;
+}
+
+const std::unordered_map<std::string, double>& IntentRepository::getWf() const {
+    return wf;
 }

@@ -6,6 +6,7 @@
 #include <string>
 
 class Intent {
+private:
     bool question;
 
     std::vector<std::string> keyWords;
@@ -20,8 +21,8 @@ public:
     void addKeyWord(std::vector<std::string> words);
     void addAnswer(std::string answer);
     void addAnswer(std::vector<std::string> answers);
-    std::vector<std::string> getKeyWords();
-    std::vector<std::string> getAnswers();
+    const std::vector<std::string>& getKeyWords() const;
+    const std::vector<std::string>& getAnswers() const;
     bool isQuestion();
 };
 

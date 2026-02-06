@@ -18,7 +18,14 @@ void showVector(std::vector<std::string> v) {
 
 int main() {
     TrashWordsController controller;
+    IntentRepository rep;
+    IntentDetector detector(&rep);
+    IntentResult res;
+
+    const std::map<std::string, Intent>& intents = rep.getIntents();
+    std::vector<std::string> v;
     std::string input;
+    
     std::cout << "Enter someting...\n";
     do {
         std::getline(std::cin, input);
@@ -28,30 +35,22 @@ int main() {
 
         TextNormalizer::removePunctuation(input);
         TextNormalizer::lowerCase(input);
-        std::vector<std::string> v = TextNormalizer::toVector(input);
+        v = TextNormalizer::toVector(input);
         controller.trashCheck(v);
+        res = detector.detect(v);
 
-        IntentRepository rep;
-        IntentDetector detector(&rep);
-        
-        IntentResult res = detector.detect(v);
-        
-        auto intents = rep.getIntents().begin();
-        auto end = rep.getIntents().end();
-        while(intents != end) {
-            if(intents->first == res.name) {
+        auto begin = intents.begin();
+        auto end = intents.end();
+        while(begin != end) {
+            if(begin->first == res.name) {
                 std::cout << "========================================================\n";
-                std::cout << "Jarvis: " << intents->second.getAnswers()[0] << std::endl;
+                std::cout << "Jarvis: " << begin->second.getAnswers()[0] << std::endl;
                 std::cout << "========================================================\n";
                 break;
             }
-            intents++;
+            begin++;
         }
     } while(true);
-    // std::string s = "Hello, Jarvis!";
-    // std::cout << s << std::endl;
-    
-    // std::cout << s << std::endl;
 
     return 0;
 }

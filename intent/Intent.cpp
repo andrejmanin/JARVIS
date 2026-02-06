@@ -1,5 +1,4 @@
 #include "Intent.h"
-#include <iostream>
 
 Intent::Intent(bool question, std::vector<std::string> keyWords, std::vector<std::string> answers) {
     this->question = question;
@@ -22,13 +21,9 @@ void Intent::addKeyWord(std::string word) {
 } 
 
 void Intent::addKeyWord(std::vector<std::string> words) {
-    int last = keyWords.size();
-    int lastNew = words.size();
-    int i = 0;
-    while(last != lastNew) {
-        last++;
-        keyWords[last] = words[i];
-        i++;
+    unsigned int wordsCount = words.size();
+    for(int i = 0; i < wordsCount; i++) {
+        keyWords.push_back(words[i]);
     }
 }
 
@@ -37,21 +32,17 @@ void Intent::addAnswer(std::string answer) {
 }
 
 void Intent::addAnswer(std::vector<std::string> answers) {
-    int last = this->answers.size();
-    int lastNew = answers.size();
-    int i = 0;
-    while(last != lastNew) {
-        last++;
-        this->answers[last] = answers[i];
-        i++;
+    unsigned int answersCount = answers.size();
+    for(int i = 0; i < answersCount; i++) {
+        answers.push_back(answers[i]);
     }
 }
 
-std::vector<std::string> Intent::getKeyWords() {
+const std::vector<std::string>& Intent::getKeyWords() const {
     return keyWords;
 }
 
-std::vector<std::string> Intent::getAnswers() {
+const std::vector<std::string>& Intent::getAnswers() const {
     return answers;
 }
 
