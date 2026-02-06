@@ -29,7 +29,7 @@ int main() {
         TextNormalizer::lowerCase(input);
         std::vector<std::string> list = TextNormalizer::toVector(input);
         showVector(list);
-        
+
         IntentRepository rep;
         IntentDetector detector(&rep);
         
@@ -54,21 +54,3 @@ int main() {
 
     return 0;
 }
-
-/**
- * Tasks to do:
- * 1. This "score" is not good:
- *       hello jarvis
- *       For intent: AboutBot there are 0 maches.
- *       2
- *      AboutBot score: 0
- *       For intent: Greeting there are 1 maches.
- *       7
- *       Greeting score: 0.142857 !!! <----- THERE SHOULD BE 0.99 OR 1
- *       For intent: HowAreYou there are 0 maches.
- *       3
- *       HowAreYou score: 0
- *       Hi, how can I help you today?
- * 2. Start adding Pythod part with voice and GPT API
- * 3. Clear project
- */

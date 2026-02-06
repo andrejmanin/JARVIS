@@ -2,7 +2,7 @@
 #include <string.h>
 #include <iostream>
 
-void TextNormalizer::removeSpacePunct(std::string& text) {
+void TextNormalizer::removePunctuation(std::string& text) {
     if(text.empty()) {
         return;
     }
