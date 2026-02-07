@@ -12,15 +12,15 @@ private:
     std::vector<std::string> keyWords;
     std::vector<std::string> answers;
 public:
-    Intent(bool question, std::vector<std::string> keyWords, std::vector<std::string> answers);
+    Intent(bool question, const std::vector<std::string> keyWords, const std::vector<std::string> answers);
     ~Intent();
     
     void quest();
-    void updateType(std::string t);
-    void addKeyWord(std::string word);
-    void addKeyWord(std::vector<std::string> words);
-    void addAnswer(std::string answer);
-    void addAnswer(std::vector<std::string> answers);
+    void updateType(const std::string t);
+    void addKeyWord(const std::string word);
+    void addKeyWord(const std::vector<std::string> words);
+    void addAnswer(const std::string answer);
+    void addAnswer(const std::vector<std::string> answers);
     const std::vector<std::string>& getKeyWords() const;
     const std::vector<std::string>& getAnswers() const;
     bool isQuestion();

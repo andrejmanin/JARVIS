@@ -42,11 +42,11 @@ void TrashWordsController::removeWord(const std::vector<std::string> words) {
     }
 }
 
-std::vector<std::string> TrashWordsController::getWords() {
+const std::vector<std::string>& TrashWordsController::getWords() const {
     return trashWords;
 }
 
-bool TrashWordsController::compare(const std::string word) {
+bool TrashWordsController::compare(const std::string& word) {
     for(std::string el : trashWords) {
         if(el == word)
             return true;
