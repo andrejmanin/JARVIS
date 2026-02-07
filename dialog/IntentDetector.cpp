@@ -11,7 +11,7 @@ IntentResult IntentDetector::detect(const std::vector<std::string>& tokens) {
     auto end = intents.end();
     double bestScore = 0.0;
     std::string intentName = "None";
-    const std::unordered_map<std::string, double> wf = repository->getWf();
+    const std::unordered_map<std::string, double>& wf = repository->getWf();
     while(itr != end) {
         const std::vector<std::string> keyWords = itr->second.getKeyWords();
         const std::unordered_set<std::string> keyWordSet(keyWords.begin(), keyWords.end());
