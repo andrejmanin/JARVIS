@@ -17,7 +17,7 @@ private:
     
 public:
     IntentDetector(IntentRepository *repository); 
-    IntentResult detect(std::vector<std::string> tokens);
+    IntentResult detect(const std::vector<std::string>& tokens);
 };
 
 #endif // INTENT_DETECTOR
