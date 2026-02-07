@@ -6,7 +6,7 @@
 
 class TrashWordsController {
     std::vector<std::string> trashWords;
-    bool compare(const std::string word);
+    bool compare(const std::string& word);
 public:
     // Adds basic "trash words" to the vector
     TrashWordsController();
@@ -20,7 +20,7 @@ public:
     unsigned int addWord(const std::vector<std::string> words);
     void removeWord(const std::string word);
     void removeWord(const std::vector<std::string> words);
-    std::vector<std::string> getWords();
+    const std::vector<std::string>& getWords() const;
 
     void trashCheck(std::vector<std::string>& v);
 };

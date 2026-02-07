@@ -1,6 +1,6 @@
 #include "Intent.h"
 
-Intent::Intent(bool question, std::vector<std::string> keyWords, std::vector<std::string> answers) {
+Intent::Intent(bool question, const std::vector<std::string> keyWords, const std::vector<std::string> answers) {
     this->question = question;
     this->keyWords = keyWords;
     this->answers = answers;
@@ -16,22 +16,22 @@ void Intent::quest() {
     question = true;
 }
 
-void Intent::addKeyWord(std::string word) {
+void Intent::addKeyWord(const std::string word) {
     keyWords.push_back(word);
 } 
 
-void Intent::addKeyWord(std::vector<std::string> words) {
+void Intent::addKeyWord(const std::vector<std::string> words) {
     unsigned int wordsCount = words.size();
     for(int i = 0; i < wordsCount; i++) {
         keyWords.push_back(words[i]);
     }
 }
 
-void Intent::addAnswer(std::string answer) {
+void Intent::addAnswer(const std::string answer) {
     answers.push_back(answer);
 }
 
-void Intent::addAnswer(std::vector<std::string> answers) {
+void Intent::addAnswer(const std::vector<std::string> answers) {
     unsigned int answersCount = answers.size();
     for(int i = 0; i < answersCount; i++) {
         this->answers.push_back(answers[i]);

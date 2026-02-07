@@ -49,16 +49,24 @@ void TextNormalizer::lowerCase(std::string& text) {
 }
 
 std::vector<std::string> TextNormalizer::toVector(const std::string& text) {    
-    std::vector<std::string> v;
-    int size = text.size();
-    for(int i = 0, j = 0; i < size; i++) {
-        if(text[i] == ' ' && i != 0) {
-            v.push_back(text.substr(j, i - j));
-            j = i + 1;
-        } else if(text[i + 1] == *text.end() && j <= i) {
-            v.push_back(text.substr(j, i - j + 1));
+    std::vector<std::string> result;
+    std::string current;
+    unsigned int size = text.size();
+    for(unsigned int i = 0; i < size; i++) {
+        if(text[i] == ' ') {
+            if(!current.empty()) {
+                result.push_back(current);
+                current.clear();
+            }
+        } else {
+            current += text[i];
         }
     }
 
-    return v;
+    if(!current.empty()) {
+        result.push_back(current);
+        current.clear();
+    }
+    
+    return result;
 }
