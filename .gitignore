@@ -1,7 +1,8 @@
 # IDE start directories
 .vscode/
-build/ 
-
+.venv/
+build/
+ 
 CMakeLists.txt
 # Prerequisites
 *.d
