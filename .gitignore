@@ -2,6 +2,7 @@
 .vscode/
 .venv/
 build/
+py/llm/__pycache__
  
 CMakeLists.txt
 # Prerequisites
