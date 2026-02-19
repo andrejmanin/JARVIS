@@ -62,6 +62,14 @@ IntentRepository::IntentRepository() {
                 {"about", "you", "yourself", "tell"},
                 {"I'm bot that can answer on diferent questions and help with your daily tasks."}
             }
+        },
+        {
+            "None",
+            Intent {
+                true,
+                {"tell", "me", "about", "python", "c++", "c#", "wether", "it", "world"},
+                {"None"}
+            }
         }
     };
     wordFrequency();

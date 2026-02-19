@@ -1,7 +1,7 @@
 #ifndef INTENT_DETECTOR
 #define INTENT_DETECTOR
 
-#include "IntentRepository.h"
+#include "intent/IntentRepository.h"
 
 #include <string>
 #include <vector>

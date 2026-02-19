@@ -1,7 +1,9 @@
 # IDE start directories
 .vscode/
-build/ 
-
+.venv/
+build/
+py/llm/__pycache__
+ 
 CMakeLists.txt
 # Prerequisites
 *.d
@@ -44,3 +46,6 @@ CMakeLists.txt
 
 # debug information files
 *.dwo
+
+# Secrets
+.env
